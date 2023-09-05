@@ -32,35 +32,6 @@ def get_least_common_multiple(num_a, num_b):
     return result
 
 
-def get_lcm_range(rng):
-    pass
-
-
-
-# first_num = 10
-# sec_num = 24
-#
-# lcm = []
-# for i in range(10, 2, -1):
-#     lcm.append(get_least_common_multiple(i, i - 1))
-#
-# print(lcm)
-#
-# new_lcm = []
-# counter = 2
-# for i in lcm:
-#     new_lcm.append(get_least_common_multiple(i, counter))
-#     counter += 1
-#
-# print(new_lcm)
-#
-#
-# for i in range(10, 1, -1):
-#     print(2520 / i)
-#
-# for i in range(10, 1, -1):
-#     print(get_least_common_multiple(2520 / i, i))
-
 newest_lcm = 2
 lcms = []
 for i in range(20, 2, -1):
@@ -68,6 +39,7 @@ for i in range(20, 2, -1):
 
 print(newest_lcm)
 
+# testing result
 for i in range(20, 2, -1):
     if newest_lcm % i != 0:
         print("WRONG")
