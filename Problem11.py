@@ -1,3 +1,5 @@
+import copy
+
 grid_string = """
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -21,6 +23,19 @@ grid_string = """
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
 """
 
+
+def get_product_vertical():
+    pass
+
+
+def get_product_horizontal():
+    pass
+
+
+def get_product_diagonal():
+    pass
+
+
 lst = []
 counter = 0
 temp_list = []
@@ -28,7 +43,8 @@ num_1 = " "
 num_2 = " "
 for char in grid_string:
     if len(temp_list) == 20:
-        lst.append(temp_list)
+        new_list = copy.deepcopy(temp_list)
+        lst.append(new_list)
         temp_list.clear()
     if char == " ":
         continue
@@ -37,11 +53,12 @@ for char in grid_string:
             num_1 = char
         elif num_2 == " ":
             num_2 = char
-        else:
-            temp_list.append(int("".join([num_1, num_2])))
+            joined = num_1 + num_2
+            temp_list.append(int(joined))
             num_1 = " "
             num_2 = " "
 
 
 for i in lst:
     print(i)
+
