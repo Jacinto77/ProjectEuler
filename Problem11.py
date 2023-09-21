@@ -1,4 +1,5 @@
 import copy
+import math
 
 grid_string = """
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
@@ -24,41 +25,95 @@ grid_string = """
 """
 
 
-def get_product_vertical():
-    pass
+def get_product_diagonal(in_grid):
+    four_digit_numbers = []
+    for row in range(len(in_grid) - 3):
+        for col in range(len(in_grid) - 3):
+            four_digit_numbers.append([in_grid[row][col],
+                                       in_grid[row + 1][col + 1],
+                                       in_grid[row + 2][col + 2],
+                                       in_grid[row + 3][col + 3]])
+
+    print(four_digit_numbers)
+
+    for row in range(len(in_grid) - 3):
+        for col in range(len(in_grid) - 3):
+            four_digit_numbers.append([in_grid[row][col + 3],
+                                       in_grid[row + 1][col + 2],
+                                       in_grid[row + 2][col + 1],
+                                       in_grid[row + 3][col]])
+    print(four_digit_numbers)
+    return four_digit_numbers
 
 
-def get_product_horizontal():
-    pass
+def get_product_vertical(in_grid):
+    four_digit_numbers = []
+    row = 0
+    while row < len(in_grid) - 3:
+        for col in range(len(in_grid)):
+            four_digit_numbers.append([in_grid[row][col],
+                                       in_grid[row + 1][col],
+                                       in_grid[row + 2][col],
+                                       in_grid[row + 3][col]])
+        row += 1
+
+    return four_digit_numbers
 
 
-def get_product_diagonal():
-    pass
+def get_product_horizontal(in_grid):
+    four_digit_numbers = []
+    for row in range(len(in_grid)):
+        for col in range(len(in_grid) - 3):
+            four_digit_numbers.append([in_grid[row][col],
+                                       in_grid[row][col + 1],
+                                       in_grid[row][col + 2],
+                                       in_grid[row][col + 3]])
+    return four_digit_numbers
 
 
-lst = []
-counter = 0
-temp_list = []
-num_1 = " "
-num_2 = " "
-for char in grid_string:
-    if len(temp_list) == 20:
-        new_list = copy.deepcopy(temp_list)
-        lst.append(new_list)
-        temp_list.clear()
-    if char == " ":
-        continue
-    if char.isdigit():
-        if num_1 == " ":
-            num_1 = char
-        elif num_2 == " ":
-            num_2 = char
-            joined = num_1 + num_2
-            temp_list.append(int(joined))
-            num_1 = " "
-            num_2 = " "
+def get_grid_string(string):
+    lst = []
+    temp_list = []
+    num_1 = " "
+    num_2 = " "
+    for char in string:
+        if len(temp_list) == 20:
+            new_list = copy.deepcopy(temp_list)
+            lst.append(new_list)
+            temp_list.clear()
+        if char == " ":
+            continue
+        if char.isdigit():
+            if num_1 == " ":
+                num_1 = char
+            elif num_2 == " ":
+                num_2 = char
+                joined = num_1 + num_2
+                temp_list.append(int(joined))
+                num_1 = " "
+                num_2 = " "
+    return lst
 
 
-for i in lst:
+def find_highest_prod(list_nums):
+    product = 0
+    temp_list = []
+    for i in list_nums:
+        if math.prod(i) > product:
+            product = math.prod(i)
+            temp_list = i
+
+    return product, temp_list
+
+
+grid = get_grid_string(grid_string)
+
+for i in grid:
     print(i)
 
+verts = get_product_vertical(grid)
+horiz = get_product_horizontal(grid)
+diag = get_product_diagonal(grid)
+
+
+print(find_highest_prod(verts+horiz+diag))
